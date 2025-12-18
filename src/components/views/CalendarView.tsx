@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Check } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, CalendarDays } from 'lucide-react';
 import { Habit } from '@/types/habit';
 import { cn } from '@/lib/utils';
 
@@ -62,17 +62,27 @@ export function CalendarView({ habits, completions, onToggleCompletion }: Calend
   return (
     <div className="min-h-screen pb-24">
       {/* Header */}
-      <div className="gradient-hero pt-12 pb-6 px-5">
-        <div className="max-w-lg mx-auto">
-          <h1 className="text-2xl font-bold text-foreground">Calendar</h1>
-          <p className="text-sm text-muted-foreground mt-1">Track your progress over time</p>
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 gradient-hero gradient-mesh" />
+        <div className="relative pt-12 pb-6 px-5">
+          <div className="max-w-lg mx-auto">
+            <div className="flex items-center gap-2.5">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <CalendarDays className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-display font-bold text-foreground">Calendar</h1>
+                <p className="text-sm text-muted-foreground">Track your progress over time</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Calendar */}
       <div className="px-5 -mt-2">
         <div className="max-w-lg mx-auto">
-          <div className="bg-card rounded-3xl shadow-card p-5">
+          <div className="bg-card rounded-2xl border border-border/50 shadow-card p-5">
             {/* Month navigation */}
             <div className="flex items-center justify-between mb-6">
               <button
@@ -81,7 +91,7 @@ export function CalendarView({ habits, completions, onToggleCompletion }: Calend
               >
                 <ChevronLeft className="w-5 h-5 text-foreground" />
               </button>
-              <h2 className="text-lg font-semibold text-foreground">{formatMonth()}</h2>
+              <h2 className="text-lg font-display font-semibold text-foreground">{formatMonth()}</h2>
               <button
                 onClick={nextMonth}
                 className="p-2 rounded-xl hover:bg-secondary transition-colors"
@@ -93,7 +103,7 @@ export function CalendarView({ habits, completions, onToggleCompletion }: Calend
             {/* Day headers */}
             <div className="grid grid-cols-7 gap-1 mb-2">
               {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
-                <div key={i} className="text-center text-xs font-medium text-muted-foreground py-2">
+                <div key={i} className="text-center text-xs font-semibold text-muted-foreground py-2 uppercase">
                   {day}
                 </div>
               ))}
@@ -118,9 +128,9 @@ export function CalendarView({ habits, completions, onToggleCompletion }: Calend
                     className={cn(
                       "aspect-square rounded-xl flex flex-col items-center justify-center text-sm transition-all relative",
                       isSelected
-                        ? "gradient-primary text-primary-foreground shadow-card"
+                        ? "gradient-primary text-primary-foreground shadow-lg"
                         : isToday
-                        ? "bg-primary/10 text-primary font-semibold"
+                        ? "bg-primary/10 text-primary font-semibold ring-1 ring-primary/30"
                         : "hover:bg-secondary"
                     )}
                   >
@@ -129,7 +139,7 @@ export function CalendarView({ habits, completions, onToggleCompletion }: Calend
                     </span>
                     {completion && !isSelected && (
                       <div
-                        className="absolute bottom-1 w-1.5 h-1.5 rounded-full"
+                        className="absolute bottom-1.5 w-1.5 h-1.5 rounded-full"
                         style={{
                           backgroundColor: completion.percentage === 100
                             ? 'hsl(var(--success))'
@@ -150,44 +160,45 @@ export function CalendarView({ habits, completions, onToggleCompletion }: Calend
       {/* Selected Day Habits */}
       <div className="px-5 mt-6">
         <div className="max-w-lg mx-auto">
-          <h3 className="text-lg font-semibold text-foreground mb-4">
+          <h3 className="text-lg font-display font-semibold text-foreground mb-4">
             {new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
           </h3>
           
           {selectedHabits.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              <p>No habits scheduled for this day</p>
+            <div className="text-center py-10 bg-card rounded-xl border border-border/50 shadow-card">
+              <p className="text-muted-foreground">No habits scheduled for this day</p>
             </div>
           ) : (
             <div className="space-y-2">
-              {selectedHabits.map((habit) => {
+              {selectedHabits.map((habit, index) => {
                 const isCompleted = (completions[habit.id] || []).includes(selectedDate);
                 return (
                   <div
                     key={habit.id}
                     onClick={() => onToggleCompletion(habit.id, selectedDate)}
                     className={cn(
-                      "flex items-center gap-3 p-4 rounded-2xl bg-card shadow-card cursor-pointer transition-all",
-                      isCompleted && "opacity-60"
+                      "flex items-center gap-3 p-4 rounded-xl bg-card border border-border/50 shadow-card cursor-pointer transition-all animate-slide-up",
+                      isCompleted && "bg-success/5 border-success/20"
                     )}
+                    style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div
                       className={cn(
                         "w-10 h-10 rounded-xl flex items-center justify-center transition-all",
                         isCompleted
-                          ? "bg-success text-success-foreground"
-                          : "border-2 border-border"
+                          ? "gradient-success text-success-foreground shadow-sm"
+                          : "border-2 border-border bg-secondary/50"
                       )}
                     >
                       {isCompleted ? (
-                        <Check className="w-5 h-5" />
+                        <Check className="w-5 h-5" strokeWidth={3} />
                       ) : (
                         <span className="text-lg">{habit.icon}</span>
                       )}
                     </div>
                     <span className={cn(
                       "font-medium text-foreground",
-                      isCompleted && "line-through text-muted-foreground"
+                      isCompleted && "text-success"
                     )}>
                       {habit.name}
                     </span>

@@ -82,12 +82,12 @@ export function AddHabitDialog({ isOpen, onClose, onAdd }: AddHabitDialogProps) 
       />
       
       {/* Dialog */}
-      <div className="relative w-full max-w-md bg-card rounded-t-3xl sm:rounded-3xl p-6 shadow-lg animate-slide-up max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-md bg-card rounded-t-3xl sm:rounded-2xl border border-border/50 p-6 shadow-xl animate-slide-up max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-foreground">New Habit</h2>
+          <h2 className="text-xl font-display font-bold text-foreground">New Habit</h2>
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-secondary transition-colors"
+            className="p-2 rounded-xl hover:bg-secondary transition-colors"
           >
             <X className="w-5 h-5 text-muted-foreground" />
           </button>
