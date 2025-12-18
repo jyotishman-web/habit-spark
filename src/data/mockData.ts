@@ -1,0 +1,92 @@
+import { Habit, MotivationalQuote } from '@/types/habit';
+
+export const defaultHabits: Habit[] = [
+  {
+    id: '1',
+    name: 'Morning Meditation',
+    icon: '🧘',
+    category: 'mindfulness',
+    frequency: 'daily',
+    targetDays: [0, 1, 2, 3, 4, 5, 6],
+    reminderTime: '07:00',
+    color: 'hsl(162 63% 41%)',
+    createdAt: new Date('2024-01-01'),
+    streak: 12,
+    longestStreak: 21,
+    completedDates: [],
+  },
+  {
+    id: '2',
+    name: 'Drink 8 Glasses of Water',
+    icon: '💧',
+    category: 'health',
+    frequency: 'daily',
+    targetDays: [0, 1, 2, 3, 4, 5, 6],
+    reminderTime: '09:00',
+    color: 'hsl(200 80% 50%)',
+    createdAt: new Date('2024-01-01'),
+    streak: 7,
+    longestStreak: 14,
+    completedDates: [],
+  },
+  {
+    id: '3',
+    name: 'Exercise 30 Minutes',
+    icon: '🏃',
+    category: 'fitness',
+    frequency: 'daily',
+    targetDays: [1, 2, 3, 4, 5],
+    reminderTime: '18:00',
+    color: 'hsl(15 85% 60%)',
+    createdAt: new Date('2024-01-01'),
+    streak: 5,
+    longestStreak: 30,
+    completedDates: [],
+  },
+  {
+    id: '4',
+    name: 'Read for 20 Minutes',
+    icon: '📚',
+    category: 'learning',
+    frequency: 'daily',
+    targetDays: [0, 1, 2, 3, 4, 5, 6],
+    reminderTime: '21:00',
+    color: 'hsl(280 60% 55%)',
+    createdAt: new Date('2024-01-01'),
+    streak: 3,
+    longestStreak: 45,
+    completedDates: [],
+  },
+];
+
+export const motivationalQuotes: MotivationalQuote[] = [
+  { text: "Success is the sum of small efforts repeated day in and day out.", author: "Robert Collier" },
+  { text: "We are what we repeatedly do. Excellence is not an act, but a habit.", author: "Aristotle" },
+  { text: "The secret of your future is hidden in your daily routine.", author: "Mike Murdock" },
+  { text: "Motivation is what gets you started. Habit is what keeps you going.", author: "Jim Ryun" },
+  { text: "Small daily improvements are the key to staggering long-term results.", author: "Unknown" },
+  { text: "Your habits will determine your future.", author: "Jack Canfield" },
+  { text: "First we make our habits, then our habits make us.", author: "John Dryden" },
+  { text: "The chains of habit are too light to be felt until they are too heavy to be broken.", author: "Warren Buffett" },
+];
+
+export const habitSuggestions = [
+  { name: 'Morning Stretch', icon: '🤸', category: 'fitness' as const },
+  { name: 'Gratitude Journal', icon: '📝', category: 'mindfulness' as const },
+  { name: 'Take Vitamins', icon: '💊', category: 'health' as const },
+  { name: 'Learn a New Word', icon: '🔤', category: 'learning' as const },
+  { name: 'No Social Media for 1 Hour', icon: '📵', category: 'productivity' as const },
+  { name: 'Call a Friend', icon: '📞', category: 'social' as const },
+  { name: 'Go for a Walk', icon: '🚶', category: 'fitness' as const },
+  { name: 'Practice Deep Breathing', icon: '🌬️', category: 'mindfulness' as const },
+];
+
+export const categoryColors: Record<string, string> = {
+  health: 'hsl(200 80% 50%)',
+  fitness: 'hsl(15 85% 60%)',
+  mindfulness: 'hsl(162 63% 41%)',
+  productivity: 'hsl(38 92% 50%)',
+  learning: 'hsl(280 60% 55%)',
+  social: 'hsl(340 75% 55%)',
+  other: 'hsl(220 15% 50%)',
+};
